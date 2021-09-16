@@ -8,11 +8,7 @@ interface CountriesDropdownProps {
 }
 
 const CountriesDropdown = (props: CountriesDropdownProps): JSX.Element => {
-  /*const handleSelect = (e: any) => {
-    console.log(e);
-  };*/
   const { countries, onSelect } = props;
-  const defaultOption = countries[0];
   return (
     <Dropdown
       className="dropdown-container"
