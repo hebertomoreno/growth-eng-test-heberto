@@ -10,6 +10,7 @@ const SalaryInput = (props: SalaryInputProps): JSX.Element => {
   const {
     salary,
     countryCurrency,
+    selectedCurrency,
     handleInputChange,
     handleInputSubmit,
     onChangeCurrency,
@@ -44,7 +45,7 @@ const SalaryInput = (props: SalaryInputProps): JSX.Element => {
         </Form.Group>
         <Dropdown onSelect={onChangeCurrency}>
           <Dropdown.Toggle variant="success" id="dropdown-basic">
-            {countryCurrency}
+            {selectedCurrency}
           </Dropdown.Toggle>
 
           <Dropdown.Menu>
@@ -53,16 +54,7 @@ const SalaryInput = (props: SalaryInputProps): JSX.Element => {
             })}
           </Dropdown.Menu>
         </Dropdown>
-        {/*<Dropdown
-          className="currency-dropdown-container"
-          controlClassName="currency-dropdown"
-          options={currencyOptions}
-          value={countryCurrency}
-          onChange={onChangeCurrency}
-          placeholder="Select an option"
-        />*/}
       </div>
-      {/*<input type="submit" value="Calculate" />*/}
     </Form>
   );
 };

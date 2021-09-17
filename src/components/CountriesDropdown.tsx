@@ -1,6 +1,5 @@
 import React from "react";
 import Dropdown from "react-bootstrap/dropdown";
-//import Dropdown from "react-dropdown";
 import { CountriesDropdownProps } from "../helpers/interfaces";
 import "../assets/styles/components/CountriesDropdown.scss";
 

@@ -16,6 +16,7 @@ export interface CountriesDropdownProps {
 
 export interface SalaryInputProps {
   salary: string;
+  selectedCurrency: string;
   countryCurrency: string;
   handleInputChange?: any;
   handleInputSubmit?: any;

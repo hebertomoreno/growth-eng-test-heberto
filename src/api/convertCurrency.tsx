@@ -5,7 +5,6 @@ const convertCurrency = (
   fromCurrency: string,
   toCurrency: string
 ): Promise<any> => {
-  console.log(totalAnnualSalary, fromCurrency, toCurrency);
   return axios
     .get<string>("https://api.exchangerate.host/convert", {
       params: {

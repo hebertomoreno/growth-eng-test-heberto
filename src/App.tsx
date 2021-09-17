@@ -21,9 +21,6 @@ const App = (): JSX.Element => {
     showResult: false,
   });
 
-  //TODO: Make app responsive
-  //TODO: Style the whole app
-
   const onChangeCountry = (newCountry: string) => {
     const countryName = newCountry;
     const currency = taxRates[countryName].currency;
@@ -110,6 +107,7 @@ const App = (): JSX.Element => {
                 ? state.annualSalaryUSD
                 : state.annualSalaryBase
             }
+            selectedCurrency={state.selectedCurrency as string}
             countryCurrency={state.countryCurrency as string}
             onChangeCurrency={onChangeCurrency}
             handleInputChange={onChangeSalary}
