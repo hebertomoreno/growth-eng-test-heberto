@@ -5,7 +5,6 @@ const convertCurrency = (
   fromCurrency: string,
   toCurrency: string
 ): Promise<any> => {
-  console.log(fromCurrency, toCurrency);
   return axios
     .get<string>("https://api.exchangerate.host/convert", {
       params: {
@@ -16,7 +15,9 @@ const convertCurrency = (
     })
     .then((response) => response.data)
     .catch((error) => {
-      console.error("There was an error.");
+      console.error(
+        "There was an error connecting to the conversion server..."
+      );
     });
 };
 

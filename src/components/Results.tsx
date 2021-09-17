@@ -1,8 +1,9 @@
 import React from "react";
-import { resultsProps } from "../helpers/interfaces";
+import { ResultsProps } from "../helpers/interfaces";
+import ResultsColumn from "./ResultsColumn";
 import "../assets/styles/components/Results.scss";
 
-const Results = (props: resultsProps): JSX.Element => {
+const Results = (props: ResultsProps): JSX.Element => {
   // TODO: Style this Component.
 
   const {
@@ -10,6 +11,7 @@ const Results = (props: resultsProps): JSX.Element => {
     annualSalaryBase,
     annualSalaryUSD,
     countryTaxRate,
+    countryCurrency,
   } = props;
 
   const currentSalaryBase = parseFloat(annualSalaryBase);
@@ -30,26 +32,37 @@ const Results = (props: resultsProps): JSX.Element => {
         <p>Total Annual Cost: </p>
         <p>Approx. Monthly Payroll: </p>
       </div>
-      <div className="results left column">
-        <p>
-          {currentSalaryBase} {selectedCurrency}
-        </p>
-        <p>
-          {localTaxesBase.toFixed(2)} {selectedCurrency}
-        </p>
-        <p>
-          {totalAnnualCostBase.toFixed(2)} {selectedCurrency}
-        </p>
-        <p>
-          {approxMonthlyPayrollBase.toFixed(2)} {selectedCurrency}
-        </p>
-      </div>
-      <div className="results right column">
-        <p>{currentSalaryUSD} USD</p>
-        <p>{localTaxesUSD.toFixed(2)} USD</p>
-        <p>{totalAnnualCostUSD.toFixed(2)} USD</p>
-        <p>{approxMonthlyPayrollUSD.toFixed(2)} USD</p>
-      </div>
+      {selectedCurrency !== "USD" && (
+        <ResultsColumn
+          data={[
+            annualSalaryBase,
+            localTaxesBase.toFixed(2),
+            totalAnnualCostBase.toFixed(2),
+            approxMonthlyPayrollBase.toFixed(2),
+          ]}
+          currency={countryCurrency}
+        />
+      )}
+      <ResultsColumn
+        data={[
+          annualSalaryUSD,
+          localTaxesUSD.toFixed(2),
+          totalAnnualCostUSD.toFixed(2),
+          approxMonthlyPayrollUSD.toFixed(2),
+        ]}
+        currency={"USD"}
+      />
+      {selectedCurrency === "USD" && (
+        <ResultsColumn
+          data={[
+            annualSalaryBase,
+            localTaxesBase.toFixed(2),
+            totalAnnualCostBase.toFixed(2),
+            approxMonthlyPayrollBase.toFixed(2),
+          ]}
+          currency={countryCurrency}
+        />
+      )}
     </div>
   );
 };

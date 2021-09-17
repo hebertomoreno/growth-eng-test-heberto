@@ -63,7 +63,6 @@ const App = (): JSX.Element => {
         state.selectedCurrency as string,
         "USD"
       ).then((data) => {
-        console.log(data.result);
         setState((prevState) => ({
           ...prevState,
           annualSalaryUSD: data.result.toFixed(2),
@@ -76,7 +75,6 @@ const App = (): JSX.Element => {
         "USD",
         state.countryCurrency as string
       ).then((data) => {
-        console.log(data.result);
         setState((prevState) => ({
           ...prevState,
           annualSalaryBase: data.result.toFixed(2),
@@ -116,6 +114,7 @@ const App = (): JSX.Element => {
           annualSalaryUSD={state.annualSalaryUSD as string}
           countryTaxRate={state.countryTaxRate}
           selectedCurrency={state.selectedCurrency as string}
+          countryCurrency={state.countryCurrency as string}
         />
       )}
     </div>

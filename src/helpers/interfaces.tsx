@@ -8,6 +8,11 @@ export interface appStateInterface {
   showResult: boolean;
 }
 
+export interface CountriesDropdownProps {
+  countries: string[];
+  onSelect?: any;
+}
+
 export interface SalaryInputProps {
   salary: string;
   countryCurrency: string;
@@ -16,9 +21,15 @@ export interface SalaryInputProps {
   onChangeCurrency?: any;
 }
 
-export interface resultsProps {
+export interface ResultsProps {
   selectedCurrency: string;
   annualSalaryBase: string;
   annualSalaryUSD: string;
   countryTaxRate: number;
+  countryCurrency: string;
+}
+
+export interface ResultColumnProps {
+  data: string[];
+  currency?: string;
 }
