@@ -1,26 +1,124 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import Results from "./components/Results";
+import CountriesDropdown from "./components/CountriesDropdown";
+import SalaryInput from "./components/SalaryInput";
+import "./assets/styles/App.scss";
+import taxRates from "./taxrates.json";
+import { appStateInterface } from "./helpers/interfaces";
+import convertCurrency from "./api/convertCurrency";
 
-function App() {
+const makeCountryList = (taxRates: object): string[] => Object.keys(taxRates);
+
+const App = (): JSX.Element => {
+  const [state, setState] = useState<appStateInterface>({
+    selectedCountry: "",
+    countryTaxRate: 0,
+    countryCurrency: "",
+    selectedCurrency: "",
+    annualSalaryBase: "",
+    annualSalaryUSD: "",
+    showResult: false,
+  });
+
+  //TODO: Make app responsive
+  //TODO: Style the whole app
+
+  const onChangeCountry = (newCountry: { value: string; label: string }) => {
+    const countryName = newCountry.value;
+    setState((prevState) => ({
+      ...prevState,
+      selectedCountry: countryName,
+      countryTaxRate: taxRates[countryName].tax_rate,
+      countryCurrency: taxRates[countryName].currency,
+    }));
+  };
+
+  const onChangeSalary = (e: any) => {
+    const newSalary = e.target.value;
+    if (state.selectedCurrency !== "USD") {
+      setState((prevState) => ({
+        ...prevState,
+        annualSalaryBase: newSalary,
+      }));
+    } else {
+      setState((prevState) => ({
+        ...prevState,
+        annualSalaryUSD: newSalary,
+      }));
+    }
+    calculateResult();
+  };
+
+  const onChangeCurrency = (currency: any) => {
+    setState((prevState) => ({
+      ...prevState,
+      selectedCurrency: currency.value,
+    }));
+  };
+
+  const calculateResult = (e?: any) => {
+    if (state.selectedCurrency !== "USD") {
+      convertCurrency(
+        state.annualSalaryBase,
+        state.selectedCurrency as string,
+        "USD"
+      ).then((data) => {
+        setState((prevState) => ({
+          ...prevState,
+          annualSalaryUSD: data.result.toFixed(2),
+          showResult: true,
+        }));
+      });
+    } else {
+      convertCurrency(
+        state.annualSalaryUSD,
+        "USD",
+        state.countryCurrency as string
+      ).then((data) => {
+        setState((prevState) => ({
+          ...prevState,
+          annualSalaryBase: data.result.toFixed(2),
+          showResult: true,
+        }));
+      });
+    }
+
+    e && e.preventDefault();
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Employer Tax Calculator</h1>
+      <div className="first-form">
+        <CountriesDropdown
+          countries={makeCountryList(taxRates)}
+          onSelect={onChangeCountry}
+        />
+        {state.selectedCountry !== "" && (
+          <SalaryInput
+            salary={
+              state.selectedCurrency === "USD"
+                ? state.annualSalaryUSD
+                : state.annualSalaryBase
+            }
+            countryCurrency={state.countryCurrency as string}
+            onChangeCurrency={onChangeCurrency}
+            handleInputChange={onChangeSalary}
+            handleInputSubmit={calculateResult}
+          />
+        )}
+      </div>
+      {state.showResult && (
+        <Results
+          annualSalaryBase={state.annualSalaryBase as string}
+          annualSalaryUSD={state.annualSalaryUSD as string}
+          countryTaxRate={state.countryTaxRate}
+          selectedCurrency={state.selectedCurrency as string}
+          countryCurrency={state.countryCurrency as string}
+        />
+      )}
     </div>
   );
-}
+};
 
 export default App;
