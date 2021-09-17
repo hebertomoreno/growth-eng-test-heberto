@@ -43,7 +43,7 @@ const SalaryInput = (props: SalaryInputProps): JSX.Element => {
           placeholder="Select an option"
         />
       </div>
-      <input type="submit" value="Calculate" />
+      {/*<input type="submit" value="Calculate" />*/}
     </form>
   );
 };

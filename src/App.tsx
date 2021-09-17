@@ -46,6 +46,7 @@ const App = (): JSX.Element => {
         annualSalaryUSD: newSalary,
       }));
     }
+    calculateResult();
   };
 
   const onChangeCurrency = (currency: any) => {
@@ -55,8 +56,7 @@ const App = (): JSX.Element => {
     }));
   };
 
-  const calculateResult = (e: any) => {
-    console.log("selectedCurrency", state.selectedCurrency);
+  const calculateResult = (e?: any) => {
     if (state.selectedCurrency !== "USD") {
       convertCurrency(
         state.annualSalaryBase,
@@ -83,7 +83,7 @@ const App = (): JSX.Element => {
       });
     }
 
-    e.preventDefault();
+    e && e.preventDefault();
   };
 
   return (
