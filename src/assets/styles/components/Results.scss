@@ -1,0 +1,15 @@
+.results {
+  margin-top: 20px;
+
+  &.container {
+    display: flex;
+    justify-content: center;
+    text-align: right;
+    border: solid 4px black;
+    padding: 15px;
+    border-radius: 15px;
+  }
+}
+.column {
+  margin: 0 20px;
+}

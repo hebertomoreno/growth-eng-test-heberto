@@ -66,7 +66,7 @@ const App = (): JSX.Element => {
         console.log(data.result);
         setState((prevState) => ({
           ...prevState,
-          annualSalaryUSD: data.result,
+          annualSalaryUSD: data.result.toFixed(2),
           showResult: true,
         }));
       });
@@ -79,7 +79,7 @@ const App = (): JSX.Element => {
         console.log(data.result);
         setState((prevState) => ({
           ...prevState,
-          annualSalaryBase: data.result,
+          annualSalaryBase: data.result.toFixed(2),
           showResult: true,
         }));
       });

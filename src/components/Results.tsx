@@ -1,9 +1,9 @@
 import React from "react";
 import { resultsProps } from "../helpers/interfaces";
+import "../assets/styles/components/Results.scss";
 
 const Results = (props: resultsProps): JSX.Element => {
   // TODO: Style this Component.
-  // TODO: Hide this component until the calculate button has been pressed
 
   const {
     selectedCurrency,
@@ -23,22 +23,32 @@ const Results = (props: resultsProps): JSX.Element => {
   const approxMonthlyPayrollUSD = totalAnnualCostUSD / 12;
 
   return (
-    <div className="results">
-      <div>
-        Annual Salary: {currentSalaryBase} {selectedCurrency}
+    <div className="results container">
+      <div className="results labels column">
+        <p>Annual Salary: </p>
+        <p>Local Taxes: </p>
+        <p>Total Annual Cost: </p>
+        <p>Approx. Monthly Payroll: </p>
       </div>
-      <div>{currentSalaryUSD.toFixed(2)} USD</div>
-      <div>
-        Local Taxes: {localTaxesBase.toFixed(2)} {selectedCurrency}
+      <div className="results left column">
+        <p>
+          {currentSalaryBase} {selectedCurrency}
+        </p>
+        <p>
+          {localTaxesBase.toFixed(2)} {selectedCurrency}
+        </p>
+        <p>
+          {totalAnnualCostBase.toFixed(2)} {selectedCurrency}
+        </p>
+        <p>
+          {approxMonthlyPayrollBase.toFixed(2)} {selectedCurrency}
+        </p>
       </div>
-      <div>{totalAnnualCostUSD.toFixed(2)} USD</div>
-      <div>
-        Total Annual Cost: {totalAnnualCostBase.toFixed(2)} {selectedCurrency}
-      </div>
-      <div>{approxMonthlyPayrollUSD.toFixed(2)} USD</div>
-      <div>
-        Approx. Monthly Payroll: {approxMonthlyPayrollBase.toFixed(2)}{" "}
-        {selectedCurrency}
+      <div className="results right column">
+        <p>{currentSalaryUSD} USD</p>
+        <p>{localTaxesUSD.toFixed(2)} USD</p>
+        <p>{totalAnnualCostUSD.toFixed(2)} USD</p>
+        <p>{approxMonthlyPayrollUSD.toFixed(2)} USD</p>
       </div>
     </div>
   );
