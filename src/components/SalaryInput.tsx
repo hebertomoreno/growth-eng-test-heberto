@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
-import Dropdown from "react-dropdown";
+import Form from "react-bootstrap/form";
+import Dropdown from "react-bootstrap/dropdown";
 import { SalaryInputProps } from "../helpers/interfaces";
 import "../assets/styles/components/SalaryInput.scss";
 
@@ -24,27 +25,45 @@ const SalaryInput = (props: SalaryInputProps): JSX.Element => {
   }, [countryCurrency]);
 
   return (
-    <form className="salary-input" onSubmit={handleInputSubmit}>
+    <Form className="salary-input" onSubmit={handleInputSubmit}>
       <div className="text-input-currency">
-        <label>
-          Salary:
-          <input
-            type="text"
-            onChange={handleInputChange}
-            value={salary.toString()}
-          />
-        </label>
-        <Dropdown
+        <Form.Group className="mb-3" controlId="formSalary">
+          <Form.Label>
+            Salary:
+            <Form.Control
+              onChange={handleInputChange}
+              onKeyPress={(event: any) => {
+                if (!/[0-9]/.test(event.key)) {
+                  event.preventDefault();
+                }
+              }}
+              value={salary.toString()}
+              placeholder="Input yearly salary"
+            />
+          </Form.Label>
+        </Form.Group>
+        <Dropdown onSelect={onChangeCurrency}>
+          <Dropdown.Toggle variant="success" id="dropdown-basic">
+            {countryCurrency}
+          </Dropdown.Toggle>
+
+          <Dropdown.Menu>
+            {currencyOptions.map((option) => {
+              return <Dropdown.Item eventKey={option}>{option}</Dropdown.Item>;
+            })}
+          </Dropdown.Menu>
+        </Dropdown>
+        {/*<Dropdown
           className="currency-dropdown-container"
           controlClassName="currency-dropdown"
           options={currencyOptions}
           value={countryCurrency}
           onChange={onChangeCurrency}
           placeholder="Select an option"
-        />
+        />*/}
       </div>
       {/*<input type="submit" value="Calculate" />*/}
-    </form>
+    </Form>
   );
 };
 

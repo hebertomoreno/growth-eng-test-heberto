@@ -9,6 +9,7 @@ export interface appStateInterface {
 }
 
 export interface CountriesDropdownProps {
+  selectedCountry: string;
   countries: string[];
   onSelect?: any;
 }
