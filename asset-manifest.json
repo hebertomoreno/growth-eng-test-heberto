@@ -1,22 +1,22 @@
 {
   "files": {
-    "main.css": "/growth-eng-test-heberto/static/css/main.e63aa807.chunk.css",
-    "main.js": "/growth-eng-test-heberto/static/js/main.d58c915e.chunk.js",
-    "main.js.map": "/growth-eng-test-heberto/static/js/main.d58c915e.chunk.js.map",
-    "runtime-main.js": "/growth-eng-test-heberto/static/js/runtime-main.0216f95b.js",
-    "runtime-main.js.map": "/growth-eng-test-heberto/static/js/runtime-main.0216f95b.js.map",
-    "static/js/2.c82fc51a.chunk.js": "/growth-eng-test-heberto/static/js/2.c82fc51a.chunk.js",
-    "static/js/2.c82fc51a.chunk.js.map": "/growth-eng-test-heberto/static/js/2.c82fc51a.chunk.js.map",
-    "static/js/3.b59ba752.chunk.js": "/growth-eng-test-heberto/static/js/3.b59ba752.chunk.js",
-    "static/js/3.b59ba752.chunk.js.map": "/growth-eng-test-heberto/static/js/3.b59ba752.chunk.js.map",
+    "main.css": "/growth-eng-test-heberto/static/css/main.8f2a2057.chunk.css",
+    "main.js": "/growth-eng-test-heberto/static/js/main.98880906.chunk.js",
+    "main.js.map": "/growth-eng-test-heberto/static/js/main.98880906.chunk.js.map",
+    "runtime-main.js": "/growth-eng-test-heberto/static/js/runtime-main.ce8a848f.js",
+    "runtime-main.js.map": "/growth-eng-test-heberto/static/js/runtime-main.ce8a848f.js.map",
+    "static/js/2.4ad6a2de.chunk.js": "/growth-eng-test-heberto/static/js/2.4ad6a2de.chunk.js",
+    "static/js/2.4ad6a2de.chunk.js.map": "/growth-eng-test-heberto/static/js/2.4ad6a2de.chunk.js.map",
+    "static/js/3.fecd8d82.chunk.js": "/growth-eng-test-heberto/static/js/3.fecd8d82.chunk.js",
+    "static/js/3.fecd8d82.chunk.js.map": "/growth-eng-test-heberto/static/js/3.fecd8d82.chunk.js.map",
     "index.html": "/growth-eng-test-heberto/index.html",
-    "static/css/main.e63aa807.chunk.css.map": "/growth-eng-test-heberto/static/css/main.e63aa807.chunk.css.map",
-    "static/js/2.c82fc51a.chunk.js.LICENSE.txt": "/growth-eng-test-heberto/static/js/2.c82fc51a.chunk.js.LICENSE.txt"
+    "static/css/main.8f2a2057.chunk.css.map": "/growth-eng-test-heberto/static/css/main.8f2a2057.chunk.css.map",
+    "static/js/2.4ad6a2de.chunk.js.LICENSE.txt": "/growth-eng-test-heberto/static/js/2.4ad6a2de.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.0216f95b.js",
-    "static/js/2.c82fc51a.chunk.js",
-    "static/css/main.e63aa807.chunk.css",
-    "static/js/main.d58c915e.chunk.js"
+    "static/js/runtime-main.ce8a848f.js",
+    "static/js/2.4ad6a2de.chunk.js",
+    "static/css/main.8f2a2057.chunk.css",
+    "static/js/main.98880906.chunk.js"
   ]
 }
