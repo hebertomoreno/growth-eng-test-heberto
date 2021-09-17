@@ -36,6 +36,7 @@ const SalaryInput = (props: SalaryInputProps): JSX.Element => {
         className="dropdown-container"
         controlClassName="main-dropdown"
         options={currencyOptions}
+        value={countryCurrency}
         onChange={onChangeCurrency}
         placeholder="Select an option"
       />

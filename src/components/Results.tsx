@@ -1,24 +1,45 @@
 import React from "react";
-
-interface resultsProps {
-  annualSalary: string;
-  localTaxes: number;
-  totalAnnualCost: number;
-  approxMonthlyPayroll: number;
-}
+import { resultsProps } from "../helpers/interfaces";
 
 const Results = (props: resultsProps): JSX.Element => {
   // TODO: Style this Component.
-  // TODO: move interface to interface file
-  // TODO: show results on USD
-  const { annualSalary, localTaxes, totalAnnualCost, approxMonthlyPayroll } =
-    props;
+  // TODO: Hide this component until the calculate button has been pressed
+
+  const {
+    selectedCurrency,
+    annualSalaryBase,
+    annualSalaryUSD,
+    countryTaxRate,
+  } = props;
+
+  const currentSalaryBase = parseFloat(annualSalaryBase);
+  const localTaxesBase = currentSalaryBase * countryTaxRate;
+  const totalAnnualCostBase = currentSalaryBase + localTaxesBase;
+  const approxMonthlyPayrollBase = totalAnnualCostBase / 12;
+
+  const currentSalaryUSD = parseFloat(annualSalaryUSD);
+  const localTaxesUSD = currentSalaryUSD * countryTaxRate;
+  const totalAnnualCostUSD = currentSalaryUSD + localTaxesUSD;
+  const approxMonthlyPayrollUSD = totalAnnualCostUSD / 12;
+
   return (
     <div className="results">
-      <div>Annual Salary: {annualSalary}</div>
-      <div>Local Taxes: {localTaxes.toFixed(2)}</div>
-      <div>Total Annual Cost: {totalAnnualCost.toFixed(2)}</div>
-      <div>Approx. Monthly Payroll: {approxMonthlyPayroll.toFixed(2)}</div>
+      <div>
+        Annual Salary: {currentSalaryBase} {selectedCurrency}
+      </div>
+      <div>{currentSalaryUSD.toFixed(2)} USD</div>
+      <div>
+        Local Taxes: {localTaxesBase.toFixed(2)} {selectedCurrency}
+      </div>
+      <div>{totalAnnualCostUSD.toFixed(2)} USD</div>
+      <div>
+        Total Annual Cost: {totalAnnualCostBase.toFixed(2)} {selectedCurrency}
+      </div>
+      <div>{approxMonthlyPayrollUSD.toFixed(2)} USD</div>
+      <div>
+        Approx. Monthly Payroll: {approxMonthlyPayrollBase.toFixed(2)}{" "}
+        {selectedCurrency}
+      </div>
     </div>
   );
 };

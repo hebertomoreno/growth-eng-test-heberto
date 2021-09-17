@@ -3,10 +3,8 @@ export interface appStateInterface {
   countryTaxRate: number;
   countryCurrency?: string;
   selectedCurrency?: string;
-  annualSalary: string;
-  localTaxes: number;
-  totalAnnualCost: number;
-  approxMonthlyPayroll: number;
+  annualSalaryBase: string;
+  annualSalaryUSD: string;
   showResult: boolean;
 }
 
@@ -20,8 +18,7 @@ export interface SalaryInputProps {
 
 export interface resultsProps {
   selectedCurrency: string;
-  annualSalary: string;
-  localTaxes: number;
-  totalAnnualCost: number;
-  approxMonthlyPayroll: number;
+  annualSalaryBase: string;
+  annualSalaryUSD: string;
+  countryTaxRate: number;
 }

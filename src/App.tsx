@@ -5,6 +5,7 @@ import SalaryInput from "./components/SalaryInput";
 import "./assets/styles/App.scss";
 import taxRates from "./taxrates.json";
 import { appStateInterface } from "./helpers/interfaces";
+import convertCurrency from "./api/convertCurrency";
 
 const makeCountryList = (taxRates: object): string[] => Object.keys(taxRates);
 
@@ -14,10 +15,8 @@ const App = (): JSX.Element => {
     countryTaxRate: 0,
     countryCurrency: "",
     selectedCurrency: "",
-    annualSalary: "",
-    localTaxes: 0,
-    totalAnnualCost: 0,
-    approxMonthlyPayroll: 0,
+    annualSalaryBase: "",
+    annualSalaryUSD: "",
     showResult: false,
   });
 
@@ -36,10 +35,17 @@ const App = (): JSX.Element => {
 
   const onChangeSalary = (e: any) => {
     const newSalary = e.target.value;
-    setState((prevState) => ({
-      ...prevState,
-      annualSalary: newSalary,
-    }));
+    if (state.selectedCurrency !== "USD") {
+      setState((prevState) => ({
+        ...prevState,
+        annualSalaryBase: newSalary,
+      }));
+    } else {
+      setState((prevState) => ({
+        ...prevState,
+        annualSalaryUSD: newSalary,
+      }));
+    }
   };
 
   const onChangeCurrency = (currency: any) => {
@@ -50,18 +56,35 @@ const App = (): JSX.Element => {
   };
 
   const calculateResult = (e: any) => {
-    const currentSalary = parseFloat(state.annualSalary);
-    const localTaxes = currentSalary * state.countryTaxRate;
-    const totalAnnualCost = currentSalary + localTaxes;
-    const approxMonthlyPayroll = totalAnnualCost / 12;
+    console.log("selectedCurrency", state.selectedCurrency);
+    if (state.selectedCurrency !== "USD") {
+      convertCurrency(
+        state.annualSalaryBase,
+        state.selectedCurrency as string,
+        "USD"
+      ).then((data) => {
+        console.log(data.result);
+        setState((prevState) => ({
+          ...prevState,
+          annualSalaryUSD: data.result,
+          showResult: true,
+        }));
+      });
+    } else {
+      convertCurrency(
+        state.annualSalaryUSD,
+        "USD",
+        state.countryCurrency as string
+      ).then((data) => {
+        console.log(data.result);
+        setState((prevState) => ({
+          ...prevState,
+          annualSalaryBase: data.result,
+          showResult: true,
+        }));
+      });
+    }
 
-    setState((prevState) => ({
-      ...prevState,
-      localTaxes: localTaxes,
-      totalAnnualCost: totalAnnualCost,
-      approxMonthlyPayroll: approxMonthlyPayroll,
-      showResult: !prevState.showResult,
-    }));
     e.preventDefault();
   };
 
@@ -73,21 +96,28 @@ const App = (): JSX.Element => {
           countries={makeCountryList(taxRates)}
           onSelect={onChangeCountry}
         />
-        <SalaryInput
-          salary={state.annualSalary}
-          countryCurrency={state.countryCurrency as string}
-          onChangeCurrency={onChangeCurrency}
-          handleInputChange={onChangeSalary}
-          handleInputSubmit={calculateResult}
-        />
+        {state.selectedCountry !== "" && (
+          <SalaryInput
+            salary={
+              state.selectedCurrency === "USD"
+                ? state.annualSalaryUSD
+                : state.annualSalaryBase
+            }
+            countryCurrency={state.countryCurrency as string}
+            onChangeCurrency={onChangeCurrency}
+            handleInputChange={onChangeSalary}
+            handleInputSubmit={calculateResult}
+          />
+        )}
       </div>
-      <Results
-        annualSalary={state.annualSalary}
-        localTaxes={state.localTaxes}
-        totalAnnualCost={state.totalAnnualCost}
-        approxMonthlyPayroll={state.approxMonthlyPayroll}
-        selectedCurrency={state.selectedCurrency as string}
-      />
+      {state.showResult && (
+        <Results
+          annualSalaryBase={state.annualSalaryBase as string}
+          annualSalaryUSD={state.annualSalaryUSD as string}
+          countryTaxRate={state.countryTaxRate}
+          selectedCurrency={state.selectedCurrency as string}
+        />
+      )}
     </div>
   );
 };
