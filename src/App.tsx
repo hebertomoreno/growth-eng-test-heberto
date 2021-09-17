@@ -6,17 +6,14 @@ import "./assets/styles/App.scss";
 import taxRates from "./taxrates.json";
 import { appStateInterface } from "./helpers/interfaces";
 
-const makeCurrencyList = (countries: object): string[] => {
-  return Object.values(countries).map((country) => country.currency);
-};
-
 const makeCountryList = (taxRates: object): string[] => Object.keys(taxRates);
 
 const App = (): JSX.Element => {
   const [state, setState] = useState<appStateInterface>({
-    selectedCountry: undefined,
+    selectedCountry: "",
     countryTaxRate: 0,
-    countryCurrency: undefined,
+    countryCurrency: "",
+    selectedCurrency: "",
     annualSalary: "",
     localTaxes: 0,
     totalAnnualCost: 0,
@@ -42,6 +39,13 @@ const App = (): JSX.Element => {
     setState((prevState) => ({
       ...prevState,
       annualSalary: newSalary,
+    }));
+  };
+
+  const onChangeCurrency = (currency: any) => {
+    setState((prevState) => ({
+      ...prevState,
+      selectedCurrency: currency.value,
     }));
   };
 
@@ -71,8 +75,10 @@ const App = (): JSX.Element => {
         />
         <SalaryInput
           salary={state.annualSalary}
-          handleChange={onChangeSalary}
-          handleSubmit={calculateResult}
+          countryCurrency={state.countryCurrency as string}
+          onChangeCurrency={onChangeCurrency}
+          handleInputChange={onChangeSalary}
+          handleInputSubmit={calculateResult}
         />
       </div>
       <Results
@@ -80,6 +86,7 @@ const App = (): JSX.Element => {
         localTaxes={state.localTaxes}
         totalAnnualCost={state.totalAnnualCost}
         approxMonthlyPayroll={state.approxMonthlyPayroll}
+        selectedCurrency={state.selectedCurrency as string}
       />
     </div>
   );

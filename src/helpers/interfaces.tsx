@@ -1,7 +1,8 @@
 export interface appStateInterface {
   selectedCountry?: string;
-  countryTaxRate: 0;
-  countryCurrency?: undefined;
+  countryTaxRate: number;
+  countryCurrency?: string;
+  selectedCurrency?: string;
   annualSalary: string;
   localTaxes: number;
   totalAnnualCost: number;
@@ -11,6 +12,16 @@ export interface appStateInterface {
 
 export interface SalaryInputProps {
   salary: string;
-  handleChange?: any;
-  handleSubmit?: any;
+  countryCurrency: string;
+  handleInputChange?: any;
+  handleInputSubmit?: any;
+  onChangeCurrency?: any;
+}
+
+export interface resultsProps {
+  selectedCurrency: string;
+  annualSalary: string;
+  localTaxes: number;
+  totalAnnualCost: number;
+  approxMonthlyPayroll: number;
 }
