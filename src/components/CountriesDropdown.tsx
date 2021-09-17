@@ -1,20 +1,26 @@
 import React from "react";
-import Dropdown from "react-dropdown";
+import Dropdown from "react-bootstrap/dropdown";
+//import Dropdown from "react-dropdown";
 import { CountriesDropdownProps } from "../helpers/interfaces";
 import "../assets/styles/components/CountriesDropdown.scss";
 
 const CountriesDropdown = (props: CountriesDropdownProps): JSX.Element => {
-  const { countries, onSelect } = props;
+  const { countries, onSelect, selectedCountry } = props;
+
   return (
     <>
-      <div>Which country are you hiring in?</div>
-      <Dropdown
-        className="dropdown-container"
-        controlClassName="main-dropdown"
-        options={countries}
-        onChange={onSelect}
-        placeholder="Select an option"
-      />
+      <h2>Which country are you hiring in?</h2>
+      <Dropdown onSelect={onSelect}>
+        <Dropdown.Toggle variant="success" id="dropdown-basic">
+          {selectedCountry}
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          {countries.map((option) => {
+            return <Dropdown.Item eventKey={option}>{option}</Dropdown.Item>;
+          })}
+        </Dropdown.Menu>
+      </Dropdown>
     </>
   );
 };
