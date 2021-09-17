@@ -1,10 +1,20 @@
 .dropdown-container {
   width: 300px;
-  margin: 10px auto;
   color: black;
+  margin: 10px auto;
 }
 .main-dropdown {
   padding: 10px;
   border-radius: 4px;
-  background-color: rgb(255, 255, 255);
+  background-color: rgb(61, 61, 61);
+  border-bottom: solid 2px rgb(61, 61, 61);
+  color: white;
+}
+.Dropdown-menu {
+  background-color: white;
+  border-radius: 4px;
+  width: 95%;
+}
+.Dropdown-option {
+  padding: 5px;
 }

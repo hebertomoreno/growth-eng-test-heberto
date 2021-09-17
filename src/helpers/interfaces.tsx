@@ -9,12 +9,14 @@ export interface appStateInterface {
 }
 
 export interface CountriesDropdownProps {
+  selectedCountry: string;
   countries: string[];
   onSelect?: any;
 }
 
 export interface SalaryInputProps {
   salary: string;
+  selectedCurrency: string;
   countryCurrency: string;
   handleInputChange?: any;
   handleInputSubmit?: any;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Results from "./components/Results";
+import { Container, Row } from "react-bootstrap";
 import CountriesDropdown from "./components/CountriesDropdown";
 import SalaryInput from "./components/SalaryInput";
 import "./assets/styles/App.scss";
@@ -11,25 +12,25 @@ const makeCountryList = (taxRates: object): string[] => Object.keys(taxRates);
 
 const App = (): JSX.Element => {
   const [state, setState] = useState<appStateInterface>({
-    selectedCountry: "",
+    selectedCountry: "Select an option",
     countryTaxRate: 0,
     countryCurrency: "",
     selectedCurrency: "",
     annualSalaryBase: "",
-    annualSalaryUSD: "",
+    annualSalaryUSD: "0",
     showResult: false,
   });
 
-  //TODO: Make app responsive
-  //TODO: Style the whole app
+  const onChangeCountry = (newCountry: string) => {
+    const countryName = newCountry;
+    const currency = taxRates[countryName].currency;
 
-  const onChangeCountry = (newCountry: { value: string; label: string }) => {
-    const countryName = newCountry.value;
     setState((prevState) => ({
       ...prevState,
       selectedCountry: countryName,
       countryTaxRate: taxRates[countryName].tax_rate,
-      countryCurrency: taxRates[countryName].currency,
+      countryCurrency: currency,
+      selectedCurrency: currency,
     }));
   };
 
@@ -52,7 +53,7 @@ const App = (): JSX.Element => {
   const onChangeCurrency = (currency: any) => {
     setState((prevState) => ({
       ...prevState,
-      selectedCurrency: currency.value,
+      selectedCurrency: currency,
     }));
   };
 
@@ -65,7 +66,7 @@ const App = (): JSX.Element => {
       ).then((data) => {
         setState((prevState) => ({
           ...prevState,
-          annualSalaryUSD: data.result.toFixed(2),
+          annualSalaryUSD: data.result ? data.result.toFixed(2) : "0",
           showResult: true,
         }));
       });
@@ -77,7 +78,7 @@ const App = (): JSX.Element => {
       ).then((data) => {
         setState((prevState) => ({
           ...prevState,
-          annualSalaryBase: data.result.toFixed(2),
+          annualSalaryBase: data.result ? data.result.toFixed(2) : "0",
           showResult: true,
         }));
       });
@@ -87,13 +88,18 @@ const App = (): JSX.Element => {
   };
 
   return (
-    <div className="App">
-      <h1>Employer Tax Calculator</h1>
-      <div className="first-form">
+    <Container className="App">
+      <Row>
+        <h1>Employer Tax Calculator</h1>
+      </Row>
+      <Row>
         <CountriesDropdown
+          selectedCountry={state.selectedCountry as string}
           countries={makeCountryList(taxRates)}
           onSelect={onChangeCountry}
         />
+      </Row>
+      <Row>
         {state.selectedCountry !== "" && (
           <SalaryInput
             salary={
@@ -101,23 +107,26 @@ const App = (): JSX.Element => {
                 ? state.annualSalaryUSD
                 : state.annualSalaryBase
             }
+            selectedCurrency={state.selectedCurrency as string}
             countryCurrency={state.countryCurrency as string}
             onChangeCurrency={onChangeCurrency}
             handleInputChange={onChangeSalary}
             handleInputSubmit={calculateResult}
           />
         )}
-      </div>
-      {state.showResult && (
-        <Results
-          annualSalaryBase={state.annualSalaryBase as string}
-          annualSalaryUSD={state.annualSalaryUSD as string}
-          countryTaxRate={state.countryTaxRate}
-          selectedCurrency={state.selectedCurrency as string}
-          countryCurrency={state.countryCurrency as string}
-        />
-      )}
-    </div>
+      </Row>
+      <Row>
+        {state.showResult && (
+          <Results
+            annualSalaryBase={state.annualSalaryBase as string}
+            annualSalaryUSD={state.annualSalaryUSD as string}
+            countryTaxRate={state.countryTaxRate}
+            selectedCurrency={state.selectedCurrency as string}
+            countryCurrency={state.countryCurrency as string}
+          />
+        )}
+      </Row>
+    </Container>
   );
 };
 
