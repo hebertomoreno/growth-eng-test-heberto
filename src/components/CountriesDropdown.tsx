@@ -10,13 +10,16 @@ interface CountriesDropdownProps {
 const CountriesDropdown = (props: CountriesDropdownProps): JSX.Element => {
   const { countries, onSelect } = props;
   return (
-    <Dropdown
-      className="dropdown-container"
-      controlClassName="main-dropdown"
-      options={countries}
-      onChange={onSelect}
-      placeholder="Select an option"
-    />
+    <>
+      <div>Which country are you hiring in?</div>
+      <Dropdown
+        className="dropdown-container"
+        controlClassName="main-dropdown"
+        options={countries}
+        onChange={onSelect}
+        placeholder="Select an option"
+      />
+    </>
   );
 };
 
